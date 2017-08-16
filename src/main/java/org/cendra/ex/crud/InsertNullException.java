@@ -1,4 +1,4 @@
-package org.cendra.ex.dao;
+package org.cendra.ex.crud;
 
 public class InsertNullException extends IllegalArgumentException {
 
