@@ -20,6 +20,12 @@ public class DeleteForeingObjectConflictException extends IllegalStateException 
 						+ condition);
 	}
 	
+	public DeleteForeingObjectConflictException(Object condition, String obj) {
+		super(
+				"Se intento borrar un objeto que tiene referencias a otros objetos en la base de datos.. Condición de borrado: "
+						+ condition + ". Objeto relacionado " + obj);
+	}
+	
 	public String getHumanMsg(String object) {
 		return humanMsg.replace("${object}", object);
 	}
