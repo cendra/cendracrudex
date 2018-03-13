@@ -1,41 +1,33 @@
 package org.cendra.ex.crud;
 
-public class DeleteForeingObjectConflictException extends IllegalStateException {
+import java.util.Map;
+
+public class DeleteForeingObjectConflictException extends
+		IllegalArgumentException {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2318806615342064874L;
+	private static final long serialVersionUID = 7368535778606688979L;
 
-	private String humanMsg = "Borrado no permitido. No está permitido que usted borre el ${object}, éste está siendo usado por otros componentes del sistema.";
+	private static String humanMsg = "Borrado no permitido. No está permitido que usted borre %s '%s: %s', éste está siendo usado por otros componentes del sistema.";
 
-	public DeleteForeingObjectConflictException() {
-		super(
-				"Se intento borrar un objeto que tiene referencias a otros objetos en la base de datos.");
-	}
+	private String msg;
 
-	public DeleteForeingObjectConflictException(Object condition) {
-		super(
-				"Se intento borrar un objeto que tiene referencias a otros objetos en la base de datos.. Condición de borrado: "
-						+ condition);
-	}
-	
-	public DeleteForeingObjectConflictException(Object condition, String obj) {
-		super(
-				"Se intento borrar un objeto que tiene referencias a otros objetos en la base de datos.. Condición de borrado: "
-						+ condition + ". Objeto relacionado " + obj);
-	}
-	
-	public String getHumanMsg(String object) {
-		return humanMsg.replace("${object}", object);
+//	public DeleteForeingObjectConflictException(String msg) {
+//		super(msg);
+////		humanMsg = msg;
+//	}
+
+	public DeleteForeingObjectConflictException(String pre, String labelValue,
+			Object value, Map<String, Object> foreingObjects) {
+		// super(String.format(humanMsg, pre, labelValue, value));
+		this.msg = String.format(humanMsg, pre, labelValue, value);
 	}
 
-	public String getHumanMsg() {
-		return humanMsg.replace("${object}", "objeto");
+	public String getMessage() {
+		return msg;
 	}
 
-	public void setHumanMsg(String humanMsg) {
-		this.humanMsg = humanMsg;
-	}
 
 }
